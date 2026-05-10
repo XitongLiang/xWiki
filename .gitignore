@@ -1,0 +1,19 @@
+.DS_Store
+.xwiki-git/
+
+# Obsidian workspace state can expose private note names.
+.obsidian/
+.obsidian/workspace.json
+.obsidian/graph.json
+
+# Private knowledge material. Keep only folder placeholders in Git.
+_inbox/*
+!_inbox/.gitkeep
+
+_raw/*
+!_raw/.gitkeep
+
+_wiki/**
+!_wiki/
+!_wiki/**/
+!_wiki/**/.gitkeep
