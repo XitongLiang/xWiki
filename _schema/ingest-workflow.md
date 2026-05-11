@@ -26,13 +26,43 @@ Read the source carefully enough to extract:
 - one-paragraph summary
 - key claims
 - important evidence
-- named people, organizations, places, products, projects, and concepts
+- named people, organizations, places, products, projects, datasets,
+  benchmarks, software, repositories, and concepts
 - dates and timeline events
 - contradictions with existing wiki pages
 - open questions
 
+For research papers, also extract:
+
+- research problem: what gap, bottleneck, or question the paper addresses
+- proposed method: the core algorithm, model, system, or theoretical move
+- method structure: main components, data flow, assumptions, and key
+  parameters when relevant
+- mechanism analysis: why the method is expected to work, what design choices
+  drive the improvement, and what failure modes those choices imply
+- novelty: what is genuinely new compared with prior work
+- experiments: datasets, baselines, metrics, ablations, and evaluation setup
+- key results: important numbers, qualitative findings, and failure cases
+- key figures or tables: the few diagrams, tables, or result plots that carry
+  the paper's main evidence or mechanism explanation
+- code or implementation notes: repository link, important modules, practical
+  implementation constraints, and paper-code alignment when available
+- limitations: limitations stated by the authors and plausible unstated
+  weaknesses
+- future work: author-proposed directions and natural extensions
+- related-work position: which research line the paper belongs to and how it
+  connects to existing wiki pages
+
+For formulas in paper notes:
+
+- use inline Markdown LaTeX as `$...$`
+- use block Markdown LaTeX as `$$...$$` on separate lines
+- do not wrap renderable formulas in code blocks
+- keep notation faithful to the source instead of silently changing symbols
+
 For images or PDFs with visual content, inspect relevant images separately when
-possible and describe what evidence they add.
+possible and describe what evidence they add. For paper ingests, focus on a
+small number of key figures or tables instead of trying to catalog every image.
 
 ## 4. Search Existing Wiki
 
@@ -57,6 +87,13 @@ Every source page should include:
 - links to relevant concept/entity/synthesis pages
 - open questions
 
+For research papers, include the paper-specific analysis fields when they are
+available and useful. Do not force every section when the source does not
+support it, but prefer preserving method, experiment, limitation, and
+related-work information because those are often the most reusable parts of a
+paper ingest. Include `Mechanism Analysis`, `Key Figures or Tables`, and
+`Code or Implementation Notes` when the paper provides enough evidence.
+
 ## 6. Update Related Pages
 
 For every meaningful concept or entity:
@@ -69,6 +106,26 @@ For every meaningful concept or entity:
 
 Do not create pages for every passing mention. Create pages when the topic is
 likely to matter again.
+
+### Entity Selection Policy
+
+Do not create author pages automatically.
+
+Record all known authors in the source page citation or metadata, but create a
+human entity page only when the person is worth tracking across the wiki. Good
+reasons include:
+
+- the person appears across multiple ingested sources
+- the person is part of the human's research network or collaboration graph
+- the person's research line is itself important to the wiki
+- the human explicitly asks to track that person
+
+For ordinary paper authors who are not otherwise important to the wiki, keep the
+name in the source citation and do not create an entity page.
+
+Entity pages may also represent non-human named things when they are useful
+wiki anchors, including organizations, labs, datasets, benchmarks, software
+systems, repositories, institutions, products, places, and conferences.
 
 ## 7. Update Index and Log
 

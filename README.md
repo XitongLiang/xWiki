@@ -24,6 +24,12 @@ _schema/   Operating rules: workflows, page conventions, citation style.
 - `_raw` is the source of truth for material that has entered the wiki. Files
   here should be read and cited, not edited.
 - `_wiki` is the compiled knowledge layer. The LLM owns and maintains these pages.
+- Entity pages are selective anchors for people, organizations, datasets,
+  systems, institutions, and other named things worth tracking; paper authors
+  do not become entity pages by default.
+- Research paper ingests should capture method, mechanism, experiments, key
+  figures/tables, implementation notes when available, novelty, limitations,
+  future work, and related-work position in English.
 - `_schema` defines the rules that keep the wiki consistent across sessions.
 - Useful answers should be saved back into the wiki when they create durable value.
 - The wiki should be periodically linted for stale claims, missing links,
