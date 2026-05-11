@@ -24,6 +24,8 @@ and preserving useful analysis.
 - Preserve source provenance for meaningful claims.
 - Prefer small, well-linked pages over large undifferentiated notes.
 - Update existing pages before creating duplicates.
+- Create entity pages selectively. Do not create author/person pages just
+  because someone appears in a citation.
 - Use Obsidian-style wiki links for internal links: `[[Page Name]]`.
 - Keep raw facts separate from interpretation when possible.
 - Flag uncertainty, contradictions, and missing evidence explicitly.
