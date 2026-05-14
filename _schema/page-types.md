@@ -6,7 +6,7 @@ All wiki pages should include YAML frontmatter when practical:
 
 ```yaml
 ---
-type: concept | entity | source | synthesis | question | timeline | index | log
+type: topic | concept | entity | source | synthesis | question | timeline | index | log
 status: draft | active | needs-review
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
@@ -14,6 +14,14 @@ tags: []
 sources: []
 ---
 ```
+
+## Language Policy
+
+Write generated wiki pages in English. When ingesting or querying non-English
+material, translate summaries, claims, analysis, section prose, and page titles
+into English. Preserve original titles, author names, organization names, URLs,
+filenames, and short source terms in metadata or citations when they carry
+provenance value.
 
 ## Source Page
 
@@ -49,10 +57,32 @@ For research papers, add these sections when useful:
 - `## Future Work`
 - `## Related Work Position`
 
-Paper source pages should stay in English. Preserve all known authors in the
-source metadata, but do not create author entity pages by default. These notes
-are wiki summaries, not longform blog posts: keep prose concise, cite source
-paths, and avoid turning the page into a full article rewrite.
+Source pages should stay in English. Preserve all known authors and original
+source titles in the source metadata, but do not create author entity pages by
+default. These notes are wiki summaries, not longform blog posts: keep prose
+concise, cite source paths, and avoid turning the page into a full article
+rewrite.
+
+## Topic Page
+
+Purpose: provide a navigational map for a taxonomy cluster. Topic pages are
+created and maintained during explicit taxonomy maintenance passes, not during
+ordinary ingest.
+
+Location: `_wiki/topics/l0/`, `_wiki/topics/l1/`, or `_wiki/topics/l2/`
+
+Recommended sections:
+
+- `# Topic Name`
+- `## Scope`
+- `## Child Topics`
+- `## Key Sources`
+- `## Core Concepts`
+- `## Entities`
+- `## Syntheses`
+- `## Questions`
+- `## Timelines`
+- `## Open Questions`
 
 ## Concept Page
 
