@@ -8,7 +8,7 @@ Before maintaining this wiki, read:
 - `_schema/citation-style.md`
 - `_schema/lint-workflow.md`
 - `_schema/health-workflow.md`
-- `_schema/graph-workflow.md`
+- `_schema/taxonomy-workflow.md`
 - `_schema/query-workflow.md`
 - `_schema/conversion-workflow.md`
 

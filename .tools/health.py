@@ -63,7 +63,7 @@ def source_pages() -> list[Path]:
     source_dir = WIKI_DIR / "sources"
     if not source_dir.exists():
         return []
-    return sorted(source_dir.glob("*.md"))
+    return sorted(source_dir.rglob("*.md"))
 
 
 def raw_files() -> list[Path]:
@@ -143,7 +143,19 @@ def check_index_sync(pages: list[Path]) -> dict:
         for page in pages
         if page.name not in REPORT_NAMES and page.relative_to(WIKI_DIR).as_posix() != "overview.md"
     }
-    missing = sorted(actual_paths - linked_paths)
+    reachable_paths = set(linked_paths)
+    queue = list(linked_paths)
+    while queue:
+        current = queue.pop(0)
+        current_path = REPO_ROOT / current
+        links = {normalize_name(m) for m in re.findall(r"\[\[([^\]]+)\]\]", read_text(current_path))}
+        for link in links:
+            target = names.get(link)
+            if target and target not in reachable_paths:
+                reachable_paths.add(target)
+                queue.append(target)
+
+    missing = sorted(actual_paths - reachable_paths)
 
     unresolved = sorted(
         {

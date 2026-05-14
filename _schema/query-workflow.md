@@ -16,7 +16,10 @@ a comparison, or wants a durable synthesis from existing wiki material.
 6. If the answer has durable value, save it as either:
    - `_wiki/questions/<Question>.md` for a focused answer
    - `_wiki/syntheses/<Synthesis Title>.md` for a broader synthesis
-7. Update `_wiki/index.md` and append a log entry when saving the answer.
+7. Saved question and synthesis pages should be written in English, translating
+   non-English query material when needed while preserving original source
+   titles and names in citations or evidence notes.
+8. Update `_wiki/index.md` and append a log entry when saving the answer.
 
 ## Saved Question Format
 
@@ -50,4 +53,3 @@ sources: []
 - Evidence: [[Relevant Page]], [[Another Page]]
 - Notes: brief description of why the answer was saved.
 ```
-

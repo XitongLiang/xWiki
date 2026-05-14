@@ -17,9 +17,8 @@ and preserving useful analysis.
 - `_wiki/`: generated knowledge layer. Create and update markdown pages here.
 - `_schema/`: operating rules, templates, and workflows. Update these only when
   conventions need to evolve.
-- `tools/`: deterministic maintenance scripts. Prefer these for structural
+- `.tools/`: deterministic maintenance scripts. Prefer these for structural
   checks before doing expensive or semantic wiki review.
-- `graph/`: generated graph artifacts derived from `_wiki/` links.
 
 ## Core Behavior
 
@@ -30,15 +29,20 @@ and preserving useful analysis.
 - Create entity pages selectively. Do not create author/person pages just
   because someone appears in a citation.
 - Use Obsidian-style wiki links for internal links: `[[Page Name]]`.
+- Use `_schema/taxonomy-workflow.md` only for explicit taxonomy maintenance,
+  clustering, or reorganization requests. Do not reorganize directories during
+  ordinary ingest or query answering.
+- Write wiki pages in English by default. When sources are in Chinese or any
+  other non-English language, translate extracted summaries, claims, and
+  analysis into English while preserving original titles, names, URLs, and
+  source paths in source metadata.
 - Keep raw facts separate from interpretation when possible.
 - Flag uncertainty, contradictions, and missing evidence explicitly.
 - Save durable answers from conversations into `_wiki/` when they add lasting
   value.
-- Run `python3 tools/health.py` before broad maintenance or semantic linting when
+- Run `python3 .tools/health.py` before broad maintenance or semantic linting when
   the wiki structure may have drifted.
-- Use `python3 tools/build_graph.py --report` to inspect link structure, but do
-  not create pages from graph signals without source-backed value.
-- Use `python3 tools/file_to_md.py` for optional conversion when source formats
+- Use `python3 .tools/file_to_md.py` for optional conversion when source formats
   are hard to inspect directly; preserve the original source provenance.
 - Append every meaningful ingest, query filing, or maintenance pass to
   `_wiki/log.md`.
@@ -62,6 +66,9 @@ and preserving useful analysis.
 ## Naming
 
 - Use clear title-case page names for wiki pages.
+- Prefer English page titles and filenames. Preserve non-English source titles
+  in source metadata, but use an English translated title for the wiki page when
+  it will be easier to link, search, and reuse.
 - Use stable, descriptive filenames without dates unless the page is explicitly
   chronological.
 - Prefer `Topic Name.md` over clever abbreviations.
