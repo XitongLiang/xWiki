@@ -11,14 +11,14 @@ problems that make later wiki maintenance unreliable.
 Run:
 
 ```bash
-python3 tools/health.py
+python3 .tools/health.py
 ```
 
 Useful variants:
 
 ```bash
-python3 tools/health.py --json
-python3 tools/health.py --save
+python3 .tools/health.py --json
+python3 .tools/health.py --save
 ```
 
 ## Checks

@@ -5,7 +5,7 @@ Use this workflow to health-check the wiki periodically.
 Before semantic linting, run the deterministic health check:
 
 ```bash
-python3 tools/health.py
+python3 .tools/health.py
 ```
 
 Fix structural issues first so semantic review does not spend attention on
@@ -24,8 +24,6 @@ empty pages, stale index entries, or broken links.
 - Source files still waiting in `_inbox/`.
 - Source files in `_raw/` that appear not to have corresponding source pages.
 - Wiki pages missing from `_wiki/index.md`.
-- Graph-level structure problems surfaced by `python3 tools/build_graph.py --report`,
-  including orphan pages, disproportionate hubs, and missing page signals.
 
 ## Process
 

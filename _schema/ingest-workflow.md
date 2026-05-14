@@ -8,6 +8,12 @@ process it.
 - Locate new files in `_inbox/`.
 - Determine source type: article, paper, transcript, book chapter, webpage,
   dataset, image, note, or other.
+- Check whether the source fits an existing top-level topic. If it clearly
+  opens a new broad domain, ordinary ingest may create a new L0 topic page and
+  add it to `_wiki/index.md`. If the fit is unclear, place it in a broad
+  provisional topic and record the taxonomy uncertainty as an open question.
+  Do not split, merge, or reorganize existing topic branches during ordinary
+  ingest; that belongs to `_schema/taxonomy-workflow.md`.
 - Record title, author, date, URL, and file path when available.
 - If metadata is missing, mark it as unknown instead of inventing it.
 
@@ -31,6 +37,12 @@ Read the source carefully enough to extract:
 - dates and timeline events
 - contradictions with existing wiki pages
 - open questions
+
+If the source is not in English, translate extracted claims, summaries, and
+analysis into English for `_wiki/` pages. Preserve original-language titles,
+author names, URLs, quoted terms when necessary, and raw file paths in source
+metadata. Do not invent translations for ambiguous proper nouns; keep the
+original form and add a brief English gloss when useful.
 
 For research papers, also extract:
 
@@ -77,6 +89,10 @@ Before writing:
 
 Create one page in `_wiki/sources/` using the source page format from
 `_schema/page-types.md`.
+
+Source pages should be written in English even when the source is in another
+language. Use an English translated page title when practical, and keep the
+original title in the `## Source` metadata.
 
 Every source page should include:
 

@@ -16,8 +16,7 @@ _inbox/    New material waiting to be ingested.
 _raw/      Source material after ingestion begins; cited by the wiki.
 _wiki/     Generated knowledge: summaries, concepts, entities, syntheses, logs.
 _schema/   Operating rules: workflows, page conventions, citation style.
-tools/     Deterministic maintenance utilities.
-graph/     Generated graph data and visualization artifacts.
+.tools/    Deterministic maintenance utilities.
 ```
 
 ## Principles
@@ -26,6 +25,11 @@ graph/     Generated graph data and visualization artifacts.
 - `_raw` is the source of truth for material that has entered the wiki. Files
   here should be read and cited, not edited.
 - `_wiki` is the compiled knowledge layer. The LLM owns and maintains these pages.
+- Dynamic topic clustering is a separate maintenance workflow, not part of
+  ordinary ingest. Use it only when explicitly reorganizing the wiki structure.
+- Wiki pages should be written in English. For non-English sources, translate
+  extracted claims, summaries, and analysis into English while preserving the
+  original title, author names, URLs, and source paths in metadata.
 - Entity pages are selective anchors for people, organizations, datasets,
   systems, institutions, and other named things worth tracking; paper authors
   do not become entity pages by default.
@@ -36,8 +40,6 @@ graph/     Generated graph data and visualization artifacts.
 - Useful answers should be saved back into the wiki when they create durable value.
 - Run deterministic health checks before heavier maintenance when the structure
   may have drifted.
-- Build the graph from explicit `[[wikilinks]]` to find orphans, hubs, and
-  missing page signals.
 - The wiki should be periodically linted for stale claims, missing links,
   contradictions, orphan pages, and open research questions.
 
@@ -54,14 +56,11 @@ graph/     Generated graph data and visualization artifacts.
 ## Maintenance Commands
 
 ```bash
-python3 tools/health.py
-python3 tools/build_graph.py --report
-python3 tools/file_to_md.py path/to/source.pdf
+python3 .tools/health.py
+python3 .tools/file_to_md.py path/to/source.pdf
 ```
 
 `health.py` performs deterministic structural checks with no LLM calls.
-`build_graph.py` creates `graph/graph.json` and `graph/graph.html` from explicit
-wiki links, and can print a graph health report.
 `file_to_md.py` optionally converts rich source formats into markdown companions
 for easier ingest.
 
@@ -74,7 +73,7 @@ for easier ingest.
 - `_schema/citation-style.md`: lightweight provenance and uncertainty rules.
 - `_schema/lint-workflow.md`: periodic wiki health-check process.
 - `_schema/health-workflow.md`: deterministic structural checks.
-- `_schema/graph-workflow.md`: explicit-wikilink graph generation.
+- `_schema/taxonomy-workflow.md`: dynamic topic hierarchy and directory layout rules.
 - `_schema/query-workflow.md`: answering and saving durable wiki questions.
 - `_schema/conversion-workflow.md`: optional markdown conversion for rich inputs.
 - `_wiki/index.md`: a content-oriented catalog of wiki pages.
