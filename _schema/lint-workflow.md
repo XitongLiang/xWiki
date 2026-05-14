@@ -2,6 +2,15 @@
 
 Use this workflow to health-check the wiki periodically.
 
+Before semantic linting, run the deterministic health check:
+
+```bash
+python3 .tools/health.py
+```
+
+Fix structural issues first so semantic review does not spend attention on
+empty pages, stale index entries, or broken links.
+
 ## Checks
 
 - Pages missing frontmatter.

@@ -16,6 +16,7 @@ _inbox/    New material waiting to be ingested.
 _raw/      Source material after ingestion begins; cited by the wiki.
 _wiki/     Generated knowledge: summaries, concepts, entities, syntheses, logs.
 _schema/   Operating rules: workflows, page conventions, citation style.
+.tools/    Deterministic maintenance utilities.
 ```
 
 ## Principles
@@ -24,6 +25,11 @@ _schema/   Operating rules: workflows, page conventions, citation style.
 - `_raw` is the source of truth for material that has entered the wiki. Files
   here should be read and cited, not edited.
 - `_wiki` is the compiled knowledge layer. The LLM owns and maintains these pages.
+- Dynamic topic clustering is a separate maintenance workflow, not part of
+  ordinary ingest. Use it only when explicitly reorganizing the wiki structure.
+- Wiki pages should be written in English. For non-English sources, translate
+  extracted claims, summaries, and analysis into English while preserving the
+  original title, author names, URLs, and source paths in metadata.
 - Entity pages are selective anchors for people, organizations, datasets,
   systems, institutions, and other named things worth tracking; paper authors
   do not become entity pages by default.
@@ -32,6 +38,8 @@ _schema/   Operating rules: workflows, page conventions, citation style.
   future work, and related-work position in English.
 - `_schema` defines the rules that keep the wiki consistent across sessions.
 - Useful answers should be saved back into the wiki when they create durable value.
+- Run deterministic health checks before heavier maintenance when the structure
+  may have drifted.
 - The wiki should be periodically linted for stale claims, missing links,
   contradictions, orphan pages, and open research questions.
 
@@ -45,6 +53,17 @@ _schema/   Operating rules: workflows, page conventions, citation style.
 4. Browse the result in Obsidian, ask follow-up questions, and save valuable
    analyses back into `_wiki`.
 
+## Maintenance Commands
+
+```bash
+python3 .tools/health.py
+python3 .tools/file_to_md.py path/to/source.pdf
+```
+
+`health.py` performs deterministic structural checks with no LLM calls.
+`file_to_md.py` optionally converts rich source formats into markdown companions
+for easier ingest.
+
 ## Starter Files To Add
 
 - `AGENTS.md`: root pointer that tells LLM agents to read the schema.
@@ -53,6 +72,10 @@ _schema/   Operating rules: workflows, page conventions, citation style.
 - `_schema/ingest-workflow.md`: exact process for adding new sources.
 - `_schema/citation-style.md`: lightweight provenance and uncertainty rules.
 - `_schema/lint-workflow.md`: periodic wiki health-check process.
+- `_schema/health-workflow.md`: deterministic structural checks.
+- `_schema/taxonomy-workflow.md`: dynamic topic hierarchy and directory layout rules.
+- `_schema/query-workflow.md`: answering and saving durable wiki questions.
+- `_schema/conversion-workflow.md`: optional markdown conversion for rich inputs.
 - `_wiki/index.md`: a content-oriented catalog of wiki pages.
 - `_wiki/log.md`: a chronological record of ingests, queries, and maintenance.
 - `_wiki/overview.md`: a human-readable map of what this wiki currently knows.

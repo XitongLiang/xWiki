@@ -1,10 +1,19 @@
 .DS_Store
-.xwiki-git/
 
-# Obsidian workspace state can expose private note names.
-.obsidian/
-.obsidian/workspace.json
-.obsidian/graph.json
+__pycache__/
+*.py[cod]
+x*.md
+**/x*.md
+
+# Local assistant session state.
+.claudian/
+
+# Local working scratch space.
+workspace/
+
+# Obsidian: keep graph settings, ignore local workspace/plugins/themes.
+.obsidian/*
+!.obsidian/graph.json
 
 # Private knowledge material. Keep only folder placeholders in Git.
 _inbox/*
