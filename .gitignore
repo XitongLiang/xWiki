@@ -11,6 +11,9 @@ x*.md
 # Local working scratch space.
 workspace/
 
+# Local ingredient assets.
+_ingredient/
+
 # Obsidian: keep graph settings, ignore local workspace/plugins/themes.
 .obsidian/*
 !.obsidian/graph.json
