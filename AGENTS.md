@@ -5,6 +5,7 @@ Before maintaining this wiki, read:
 - `_schema/AGENTS.md`
 - `_schema/page-types.md`
 - `_schema/ingest-workflow.md`
+- `_schema/source-selection-workflow.md`
 - `_schema/citation-style.md`
 - `_schema/lint-workflow.md`
 - `_schema/health-workflow.md`

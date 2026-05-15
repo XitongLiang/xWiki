@@ -32,6 +32,10 @@ and preserving useful analysis.
 - Use `_schema/taxonomy-workflow.md` only for explicit taxonomy maintenance,
   clustering, or reorganization requests. Do not reorganize directories during
   ordinary ingest or query answering.
+- Distinguish exhaustive ingest from curated ingest. `ingest inbox` means every
+  readable, non-duplicate inbox source should be ingested. `curated ingest ...`
+  means candidates should be selected using `_schema/source-selection-workflow.md`
+  before full ingest.
 - Write wiki pages in English by default. When sources are in Chinese or any
   other non-English language, translate extracted summaries, claims, and
   analysis into English while preserving original titles, names, URLs, and
@@ -50,10 +54,13 @@ and preserving useful analysis.
 ## Before Editing
 
 1. Check `_wiki/index.md` if it exists.
-2. If ingesting new material, move relevant files from `_inbox/` to `_raw/`.
-3. Search `_wiki/` for related pages.
-4. Read the source files or wiki pages that will support the edit.
-5. Decide whether to create a new page, update an existing page, or both.
+2. If the request is curated ingest, perform source selection before moving
+   files into `_raw/`.
+3. If ingesting accepted new material, move relevant files from `_inbox/` to
+   `_raw/`.
+4. Search `_wiki/` for related pages.
+5. Read the source files or wiki pages that will support the edit.
+6. Decide whether to create a new page, update an existing page, or both.
 
 ## After Editing
 
