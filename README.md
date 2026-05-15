@@ -25,6 +25,9 @@ _schema/   Operating rules: workflows, page conventions, citation style.
 - `_raw` is the source of truth for material that has entered the wiki. Files
   here should be read and cited, not edited.
 - `_wiki` is the compiled knowledge layer. The LLM owns and maintains these pages.
+- Ingest has two modes: exhaustive ingest processes every readable,
+  non-duplicate source in a requested queue; curated ingest first scores and
+  selects candidates before full ingest.
 - Dynamic topic clustering is a separate maintenance workflow, not part of
   ordinary ingest. Use it only when explicitly reorganizing the wiki structure.
 - Wiki pages should be written in English. For non-English sources, translate
@@ -70,6 +73,7 @@ for easier ingest.
 - `_schema/AGENTS.md`: the main operating contract for LLM maintainers.
 - `_schema/page-types.md`: standard wiki page types and recommended sections.
 - `_schema/ingest-workflow.md`: exact process for adding new sources.
+- `_schema/source-selection-workflow.md`: curated ingest scoring and decision records.
 - `_schema/citation-style.md`: lightweight provenance and uncertainty rules.
 - `_schema/lint-workflow.md`: periodic wiki health-check process.
 - `_schema/health-workflow.md`: deterministic structural checks.

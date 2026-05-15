@@ -3,6 +3,38 @@
 Use this workflow when the human adds a source to `_inbox/` and asks the LLM to
 process it.
 
+## 0. Choose the Ingest Mode
+
+Use one of two modes before moving files into `_raw/`.
+
+### Exhaustive Ingest
+
+Triggered by requests such as `ingest inbox`.
+
+Treat the requested source queue as accepted input. Ingest every readable,
+non-duplicate source. Skip only system files, empty files, corrupted files,
+unreadable files, and duplicates or alternate versions that should attach to an
+existing source page. Do not reject sources based on quality, novelty, expected
+value, or topic fit during exhaustive ingest.
+
+If a duplicate or alternate version is found, do not create a duplicate source
+page. Record the duplicate handling in `_wiki/log.md` and cite every retained
+raw file that should remain part of the source record.
+
+### Curated Ingest
+
+Triggered by requests such as `curated ingest inbox`, `curated ingest causal`,
+`ingest useful papers about X`, or `search and ingest the best sources about Y`.
+
+Treat the requested source set as candidates, not accepted inputs. First perform
+source selection using `_schema/source-selection-workflow.md`. Only candidates
+classified as `ingest-now` receive full ingest. Record the selection scores and
+reasons in `_wiki/questions/source-selection-YYYY-MM-DD.md`, and add a concise
+log entry to `_wiki/log.md`.
+
+Do not move `defer`, `reject`, or `duplicate` candidates into `_raw/` unless the
+selection workflow explicitly says to keep an alternate raw file for provenance.
+
 ## 1. Identify the Source
 
 - Locate new files in `_inbox/`.
