@@ -63,81 +63,60 @@ the reason it should be skipped.
 
 ## Output Location
 
-Record curated ingest scoring in a durable question page:
+Record curated ingest scoring in `_wiki/log-full.md` under a `source-selection`
+operation entry. Keep `_wiki/log.md` concise: it should summarize the counts,
+decision rationale, and point to `_wiki/log-full.md` for details.
 
-```text
-_wiki/questions/source-selection-YYYY-MM-DD.md
-```
+Source selection is an operational audit record, not a durable wiki question
+page, so do not create `_wiki/questions/source-selection-YYYY-MM-DD.md`.
 
-If multiple curated selections happen on the same day, append to the same page
-under a new section. This page is a decision record, not a source page.
+If multiple curated selections happen on the same day, append separate
+`source-selection` entries to `_wiki/log-full.md` and concise matching summaries
+to `_wiki/log.md`.
 
-## Selection Page Format
+## Full Log Format
 
 ```markdown
----
-type: question
-status: active
-created: YYYY-MM-DD
-updated: YYYY-MM-DD
-tags: [source-selection, curated-ingest]
-sources: []
----
+## [YYYY-MM-DD] source-selection | Request summary
 
-# Source Selection - YYYY-MM-DD
+- Request: Original human request.
+- Existing wiki context: [[Relevant Topic]], [[Relevant Source]]
+- Ingest now: `N`
+- Deferred: `N`
+- Rejected: `N`
+- Duplicates: `N`
+- Notes: brief rationale or next action.
 
-## Request
+### Candidate Decisions
 
-Original human request.
-
-## Existing Wiki Context
-
-- [[Relevant Topic]]
-- [[Relevant Source]]
-
-## Candidates
-
-### Candidate Title
+#### Candidate Title
 
 - Path or URL:
 - Type:
 - Reading depth: metadata | skim | full
 - Sections inspected:
 - Proposed topic:
-- Scores:
-  - relevance:
-  - novelty:
-  - authority:
-  - specificity:
-  - reusability:
-  - redundancy:
-  - cost:
-  - selection_score:
+- Scores: relevance `0`, novelty `0`, authority `0`, specificity `0`, reusability `0`, redundancy `0`, cost `0`, selection_score `0`
 - Decision: ingest-now | defer | reject | duplicate
 - Reason:
 - Existing overlap:
-
-## Summary
-
-- Ingest now:
-- Deferred:
-- Rejected:
-- Duplicates:
 ```
 
-## Log Format
+Keep this detailed enough to audit why a source was accepted or skipped, but do
+not turn the full-log entry into a source summary.
 
-Append a concise entry to `_wiki/log.md`:
+## Concise Log Format
 
 ```markdown
 ## [YYYY-MM-DD] source-selection | Request summary
 
-- Created or updated: [[Source Selection - YYYY-MM-DD]]
+- Request: Original human request.
 - Ingest now: `N`
 - Deferred: `N`
 - Rejected: `N`
 - Duplicates: `N`
 - Notes: brief rationale or next action.
+- Details: `_wiki/log-full.md`
 ```
 
 If full ingest happens immediately after source selection, also append normal

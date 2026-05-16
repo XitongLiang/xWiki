@@ -1,30 +1,65 @@
+# macOS / editor noise
 .DS_Store
+Thumbs.db
+*.swp
+*.swo
 
+# Python local environment and caches
+.env/
+.venv/
+venv/
 __pycache__/
 *.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local LLM/assistant state
+.claude/
+.claudian/
+
+# Personal Obsidian pages and utility notes
 x*.md
 **/x*.md
 
-# Local assistant session state.
-.claudian/
-
-# Local working scratch space.
+# Local scratch/workspace material
 workspace/
+_workspace/
 
-# Local ingredient assets.
+# Local drawings and media assets
+_excalidraw/
 _ingredient/
 
-# Obsidian: keep graph settings, ignore local workspace/plugins/themes.
+# Obsidian
+#
+# Keep the shared graph config as a reasonable default, but do not publish
+# local app state, workspaces, community plugins, snippets, or themes.
 .obsidian/*
+!.obsidian/
 !.obsidian/graph.json
 
-# Private knowledge material. Keep only folder placeholders in Git.
+# Source inbox
+#
+# Keep only the directory placeholder. User-provided sources are private by
+# default and should not be committed to an open-source template repo.
 _inbox/*
+!_inbox/
 !_inbox/.gitkeep
 
+# Raw source material
+#
+# Keep only the directory placeholder. Raw PDFs, articles, notes, datasets,
+# and converted source companions should stay local unless explicitly curated
+# for a public example repo.
 _raw/*
+!_raw/
 !_raw/.gitkeep
 
+# Generated/private wiki content
+#
+# Keep the wiki directory structure through .gitkeep files, but do not publish
+# personal source summaries, concepts, logs, syntheses, or topic maps by
+# default. Public example content should be added deliberately.
 _wiki/**
 !_wiki/
 !_wiki/**/

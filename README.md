@@ -56,6 +56,113 @@ _schema/   Operating rules: workflows, page conventions, citation style.
 4. Browse the result in Obsidian, ask follow-up questions, and save valuable
    analyses back into `_wiki`.
 
+## How To Use
+
+Most maintenance happens by asking an LLM agent to operate on this vault. Start
+from the root of the repo and use short, explicit requests like these.
+
+### Exhaustive Ingest
+
+Use this when every readable, non-duplicate file in `_inbox/` should enter the
+wiki.
+
+```text
+ingest inbox
+```
+
+Expected behavior:
+
+- Move accepted files from `_inbox/` to `_raw/`.
+- Read the sources and write source summaries in `_wiki/sources/`.
+- Create or update relevant concept, entity, topic, question, or synthesis pages.
+- Cite `_raw/` paths for factual claims.
+- Update `_wiki/log.md`.
+- Run `python3 .tools/health.py` when structural changes are meaningful.
+
+### Curated Ingest
+
+Use this when `_inbox/` contains candidates and the agent should decide what is
+worth ingesting now.
+
+```text
+curated ingest inbox
+```
+
+The phrase `inbox curated ingest` is also acceptable. Expected behavior:
+
+- Score candidate sources before moving them into `_raw/`.
+- Classify candidates as `ingest-now`, `defer`, `reject`, or `duplicate`.
+- Fully ingest only `ingest-now` sources.
+- Leave deferred or rejected sources in `_inbox/` unless the schema says
+  otherwise.
+- Keep concise decisions in `_wiki/log.md`; put detailed scoring in
+  `_wiki/log-full.md` when needed.
+
+### Ask Questions
+
+Use this when you want an answer grounded in the existing wiki.
+
+```text
+what does the wiki say about agent memory evaluation?
+compare Mem0 and AMA-Bench
+summarize the PARNI research line
+```
+
+The agent should read `_wiki/index.md`, search related wiki pages, cite existing
+wiki/source evidence, and preserve uncertainty. If the answer is durable, ask:
+
+```text
+save this as a question page
+save this as a synthesis
+```
+
+### Organize The Wiki
+
+Use this only when you explicitly want taxonomy or directory structure changes.
+Ordinary ingest should not reorganize the whole wiki.
+
+```text
+organize the AI agents and memory topic
+recluster the statistics pages
+run a taxonomy pass for agent memory
+```
+
+Expected behavior:
+
+- Use only `L0`, `L1`, and `L2` topic levels.
+- Keep `_wiki/index.md` linked to L0 topics only.
+- Move pages and raw files only when citations and wikilinks can be preserved.
+- Run `python3 .tools/health.py`.
+- Record the taxonomy pass in `_wiki/log.md`.
+
+### Health Check
+
+Use this after broad edits, ingest, or taxonomy changes.
+
+```text
+run health check
+```
+
+Equivalent command:
+
+```bash
+python3 .tools/health.py
+```
+
+The health check reports pending inbox files, stub pages, broken wikilinks,
+index sync problems, log coverage, and raw-source coverage.
+
+### Convert Hard-To-Read Sources
+
+Use this when a source is hard to inspect directly.
+
+```bash
+python3 .tools/file_to_md.py path/to/source.pdf
+```
+
+Converted markdown is a helper artifact. The original file remains the source
+of provenance unless the schema says otherwise.
+
 ## Maintenance Commands
 
 ```bash

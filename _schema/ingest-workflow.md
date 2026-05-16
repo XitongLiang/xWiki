@@ -29,8 +29,7 @@ Triggered by requests such as `curated ingest inbox`, `curated ingest causal`,
 Treat the requested source set as candidates, not accepted inputs. First perform
 source selection using `_schema/source-selection-workflow.md`. Only candidates
 classified as `ingest-now` receive full ingest. Record the selection scores and
-reasons in `_wiki/questions/source-selection-YYYY-MM-DD.md`, and add a concise
-log entry to `_wiki/log.md`.
+reasons in `_wiki/log.md` under a `source-selection` entry.
 
 Do not move `defer`, `reject`, or `duplicate` candidates into `_raw/` unless the
 selection workflow explicitly says to keep an alternate raw file for provenance.

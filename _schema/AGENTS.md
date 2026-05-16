@@ -35,7 +35,7 @@ and preserving useful analysis.
 - Distinguish exhaustive ingest from curated ingest. `ingest inbox` means every
   readable, non-duplicate inbox source should be ingested. `curated ingest ...`
   means candidates should be selected using `_schema/source-selection-workflow.md`
-  before full ingest.
+  before full ingest, with selection scores recorded in `_wiki/log.md`.
 - Write wiki pages in English by default. When sources are in Chinese or any
   other non-English language, translate extracted summaries, claims, and
   analysis into English while preserving original titles, names, URLs, and
