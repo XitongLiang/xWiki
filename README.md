@@ -56,6 +56,8 @@ _schema/   Operating rules: workflows, page conventions, citation style.
 4. Browse the result in Obsidian, ask follow-up questions, and save valuable
    analyses back into `_wiki`.
 
+For planned future work, see `PLAN.md`.
+
 ## How To Use
 
 Most maintenance happens by asking an LLM agent to operate on this vault. Start
