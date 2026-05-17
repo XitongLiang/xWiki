@@ -34,6 +34,7 @@ IGNORED_SOURCE_NAMES = {
 META_NAMES = {
     "index.md",
     "log.md",
+    "log-full.md",
 }
 STUB_THRESHOLD_CHARS = 100
 

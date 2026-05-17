@@ -1,6 +1,6 @@
 {
   "collapse-filter": false,
-  "search": "-path:\"_wiki/log.md\" -path:\"_wiki/overview.md\"",
+  "search": "path:\"_wiki/\" -path:\"_wiki/log.md\" -path:\"_wiki/log-full.md\" -path:\"_wiki/overview.md\"",
   "showTags": false,
   "showAttachments": false,
   "hideUnresolved": false,
@@ -17,6 +17,6 @@
   "repelStrength": 10,
   "linkStrength": 1,
   "linkDistance": 250,
-  "scale": 0.7822979735232374,
+  "scale": 0.8389077065755424,
   "close": true
 }

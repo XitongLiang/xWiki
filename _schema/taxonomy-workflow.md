@@ -65,22 +65,29 @@ When merging or renaming, preserve page content, update links and citations, run
 Current L0 topics:
 
 - `Statistics and Bayesian Computation` with slug `statistics-and-bayesian-computation`
-- `AI Agents and Memory` with slug `ai-agents-and-memory`
+- `Artificial Intelligence` with slug `artificial-intelligence`
 - `Developer Tools` with slug `developer-tools`
 
 Current L1 topics:
 
 - `Statistics and Bayesian Computation / PARNI Research`
-- `AI Agents and Memory / Self-Evolving Agent Memory`
+- `Artificial Intelligence / AI Agents and Memory`
+- `Artificial Intelligence / Large Language Models`
 - `Developer Tools / Version Control`
+
+Current L2 topics:
+
+- `Artificial Intelligence / AI Agents and Memory / Self-Evolving Agent Memory`
+- `Artificial Intelligence / Large Language Models / Efficient Transformer Inference`
 
 Possible future L1/L2 branches:
 
 - `Statistics and Bayesian Computation / MCMC`
 - `Statistics and Bayesian Computation / Bayesian Structure Learning`
-- `AI Agents and Memory / Self-Evolving Agents`
-- `AI Agents and Memory / Agent Memory`
-- `AI Agents and Memory / Skill Evolution`
+- `Artificial Intelligence / AI Agents and Memory / Agent Evaluation`
+- `Artificial Intelligence / AI Agents and Memory / Skill Evolution`
+- `Artificial Intelligence / Large Language Models / Post-Training`
+- `Artificial Intelligence / Large Language Models / Retrieval-Augmented Generation`
 
 Treat these as seeds, not fixed commitments. Add, rename, merge, or demote them
 as the wiki grows.
