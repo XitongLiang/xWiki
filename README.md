@@ -12,11 +12,15 @@ synthesis pages.
 ## Structure
 
 ```text
-_inbox/    New material waiting to be ingested.
-_raw/      Source material after ingestion begins; cited by the wiki.
-_wiki/     Generated knowledge: summaries, concepts, entities, syntheses, logs.
-_schema/   Operating rules: workflows, page conventions, citation style.
-.tools/    Deterministic maintenance utilities.
+_inbox/       New material waiting to be ingested.
+_raw/         Source material after ingestion begins; cited by the wiki.
+_wiki/        Generated knowledge: summaries, concepts, entities, syntheses, logs.
+_schema/      Operating rules: workflows, page conventions, citation style.
+.tools/       Deterministic maintenance utilities.
+xwiki_tools/  Local extraction, SQLite search/graph, query, and MCP package.
+.agents/      Repository-local agent skills for xWiki maintenance.
+skills/       Portable skills for agents that consume xWiki services.
+.xwiki/       Rebuildable local database and locks; never committed.
 ```
 
 ## Principles
@@ -55,6 +59,8 @@ _schema/   Operating rules: workflows, page conventions, citation style.
    activity in the log.
 4. Browse the result in Obsidian, ask follow-up questions, and save valuable
    analyses back into `_wiki`.
+5. Optionally rebuild the local knowledge index for FTS, graph queries, and MCP
+   retrieval.
 
 For planned future work, see `PLAN.md`.
 
@@ -62,6 +68,10 @@ For planned future work, see `PLAN.md`.
 
 Most maintenance happens by asking an LLM agent to operate on this vault. Start
 from the root of the repo and use short, explicit requests like these.
+
+The repository-local `.agents/skills/xwiki-ingest/` skill routes ingest,
+analysis, and explicit taxonomy requests through the current `_schema/` rules.
+It is guidance for the maintaining agent; the schema remains authoritative.
 
 ### Exhaustive Ingest
 
@@ -194,6 +204,83 @@ taxonomy checks with no LLM calls.
 `file_to_md.py` optionally converts rich source formats into markdown companions
 for easier ingest.
 
+## Local Knowledge Database
+
+xWiki includes the file-first knowledge tooling adapted from the offline
+retrieval work in ChatSustain. The database is an index over the vault, never
+the primary record.
+
+Install dependencies with Python 3.11 or newer in a local environment:
+
+```bash
+python3 -m venv .env
+.env/bin/python -m pip install -r requirements.txt
+```
+
+Build `.xwiki/knowledge.sqlite` atomically:
+
+```bash
+.env/bin/python -m xwiki_tools build
+```
+
+The build indexes Wiki page metadata, section text, wikilinks, topic levels,
+source provenance, and extractable raw-source text. It supports PDF, plain
+text, CSV, TSV, XLSX, and XLS inputs. PDF extraction does not perform OCR or
+interpret figures; spreadsheet formulas are preserved but not evaluated.
+
+Use `--skip-source-text` for a faster page/graph-only build. The old database
+remains available when a staged build fails.
+
+Query the index locally:
+
+```bash
+.env/bin/python -m xwiki_tools search "agent harness evolution"
+.env/bin/python -m xwiki_tools browse
+.env/bin/python -m xwiki_tools pages --type synthesis --status active
+.env/bin/python -m xwiki_tools graph "Self-Evolving Agent Memory Thread"
+.env/bin/python -m xwiki_tools view "Agent Harness Evolution"
+```
+
+Search currently uses SQLite FTS5 with deterministic English word and CJK
+unigram/bigram indexing. It does not yet include embeddings or learned
+reranking. See `_schema/indexing-workflow.md` for the complete contract.
+
+## Read-Only MCP
+
+After building the database, start the MCP server over stdio:
+
+```bash
+.env/bin/python -m xwiki_tools --root /absolute/path/to/xWiki mcp
+```
+
+The server exposes one batched `knowledge` tool with `search`, `browse`, `view`,
+and `read` actions. It cannot edit the Wiki, ingest sources, rebuild the index,
+or call a model.
+
+A loopback-only Streamable HTTP mode is also available:
+
+```bash
+.env/bin/python -m xwiki_tools mcp \
+  --transport streamable-http --host 127.0.0.1 --port 8765
+```
+
+Connect to `http://127.0.0.1:8765/mcp`. This local endpoint has no
+authentication and must not be exposed publicly. See
+`_schema/mcp-workflow.md` for client and safety guidance.
+
+Agents that consume this MCP can install or copy
+`skills/xwiki-knowledge-mcp/`. The skill documents evidence handling and the
+live `knowledge` action contract, and includes an optional Streamable HTTP
+client for environments without a native MCP binding.
+
+## Tool Tests
+
+Run deterministic tests with:
+
+```bash
+.env/bin/python -m unittest discover -s tests -v
+```
+
 ## Starter Files To Add
 
 - `AGENTS.md`: root pointer that tells LLM agents to read the schema.
@@ -207,6 +294,10 @@ for easier ingest.
 - `_schema/taxonomy-workflow.md`: dynamic topic hierarchy and directory layout rules.
 - `_schema/query-workflow.md`: answering and saving durable wiki questions.
 - `_schema/conversion-workflow.md`: optional markdown conversion for rich inputs.
+- `_schema/indexing-workflow.md`: local extraction, SQLite FTS/graph builds, and queries.
+- `_schema/mcp-workflow.md`: read-only local MCP behavior and security boundary.
+- `.agents/skills/xwiki-ingest/SKILL.md`: repository-local ingest and maintenance entry point.
+- `skills/xwiki-knowledge-mcp/`: portable read-only MCP retrieval skill and client.
 - `_wiki/index.md`: a content-oriented catalog of wiki pages.
 - `_wiki/log.md`: a chronological record of ingests, queries, and maintenance.
 - `_wiki/overview.md`: a human-readable map of what this wiki currently knows.

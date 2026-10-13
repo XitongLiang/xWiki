@@ -19,10 +19,20 @@ and preserving useful analysis.
   conventions need to evolve.
 - `.tools/`: deterministic maintenance scripts. Prefer these for structural
   checks before doing expensive or semantic wiki review.
+- `xwiki_tools/`: rebuildable extraction, SQLite FTS/graph indexing, query, and
+  read-only MCP code. It projects the file-based wiki and never replaces it as
+  the source of truth.
+- `.agents/skills/`: repository-local agent entry points. The xWiki ingest skill
+  routes work through this schema; it must not redefine conflicting rules.
+- `skills/`: portable client skills. The xWiki knowledge MCP skill supports
+  read-only retrieval and does not authorize Wiki writes or index repair.
 
 ## Core Behavior
 
 - Read relevant schema files before changing the wiki.
+- Use `.agents/skills/xwiki-ingest/SKILL.md` for ingest, source analysis that
+  should enter the Wiki, and explicit taxonomy maintenance. If it conflicts
+  with `_schema/`, follow `_schema/` and repair the skill separately.
 - Preserve source provenance for meaningful claims.
 - Prefer small, well-linked pages over large undifferentiated notes.
 - Update existing pages before creating duplicates.
@@ -50,6 +60,11 @@ and preserving useful analysis.
   citations, raw references, identities, wikilinks, and topic-layer rules.
 - Use `python3 .tools/file_to_md.py` for optional conversion when source formats
   are hard to inspect directly; preserve the original source provenance.
+- Rebuild `.xwiki/knowledge.sqlite` with `python3 -m xwiki_tools build` after
+  content changes when local search or MCP retrieval is in use. Follow
+  `_schema/indexing-workflow.md`; never treat the database as authored content.
+- Keep MCP read-only and local by default. Follow `_schema/mcp-workflow.md` and
+  do not expose private vault content over a public unauthenticated endpoint.
 - Append every meaningful ingest, query filing, or maintenance pass to
   `_wiki/log.md`.
 
@@ -72,6 +87,8 @@ and preserving useful analysis.
 4. Record the operation in `_wiki/log.md`.
 5. Note open questions or contradictions when they appear.
 6. Run `python3 .tools/health.py` and `python3 .tools/lint.py` after broad edits.
+7. Rebuild the optional knowledge index when the user relies on CLI or MCP
+   retrieval; an index failure must not roll back valid Markdown edits.
 
 ## Naming
 

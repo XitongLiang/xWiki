@@ -73,33 +73,43 @@ Obsidian or any Markdown editor.
 
 ### 6. Search And Retrieval Database
 
-Add an optional local database layer for search and retrieval.
+Initial local implementation completed:
+
+- rebuildable SQLite database under `.xwiki/`
+- FTS5 over Wiki pages, sections, and extractable cited sources
+- deterministic English and CJK query tokenization
+- page/source metadata, wikilink graph, topic levels, and provenance edges
+- atomic staged rebuilds, content hashes, and raw-source change detection
+- CLI search, browse, graph, view, and source-read commands
+- read-only local MCP with stdio and loopback Streamable HTTP transports
+
+The current implementation remains lexical. The next retrieval milestone is an
+optional vector layer and hybrid ranking without making the database primary.
 
 The database should be an index over the Markdown vault, not the primary source
 of truth. `_raw/`, `_wiki/`, and `_schema/` should remain readable and usable
 without the database.
 
-Core indexes:
+Remaining core indexes:
 
-- full-text search over wiki pages, source summaries, headings, tags, and raw
-  metadata
 - vector search over chunks, pages, concepts, and synthesis pages
-- structured metadata tables for page type, topic path, source path, created
-  date, updated date, tags, and outbound links
-- graph edges for wikilinks, source citations, topic membership, and related
-  concepts
 
-Recommended first implementation:
+Implemented foundation:
 
 - SQLite as the local database
 - SQLite FTS5 for lexical search
-- a vector table or companion vector index for embeddings
 - deterministic rebuild command from Markdown files
-- incremental update command based on file mtime or content hash
 
-Query design:
+Next implementation choices:
 
-- combine FTS and vector retrieval with a simple hybrid ranker
+- a vector table or companion vector index for embeddings
+- incremental extraction based on file content hash; unchanged source text is
+  already reused from the prior compatible index
+
+Remaining query design:
+
+- combine the implemented FTS retrieval with vector results through a simple
+  hybrid ranker
 - filter by page type, topic path, source, date, and language
 - preserve provenance by returning file paths, headings, and source citations
 - use retrieved pages as context for LLM answers, not as hidden memory
@@ -174,6 +184,16 @@ Possible models:
 ### 9. Skill Layer
 
 Add a first-class skill layer inspired by systems such as AutoSkill.
+
+Operational foundation completed:
+
+- repository-local `xwiki-ingest` skill that routes maintenance through the
+  authoritative schema
+- portable `xwiki-knowledge-mcp` skill for source-backed, read-only retrieval
+  by external agents
+
+These operational skills do not yet implement learned skill extraction,
+ranking, promotion, or lifecycle management.
 
 Potential design:
 

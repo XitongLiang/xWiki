@@ -1,0 +1,4 @@
+interface:
+  display_name: "xWiki Knowledge MCP"
+  short_description: "Retrieve source-backed evidence from xWiki"
+  default_prompt: "Use $xwiki-knowledge-mcp to answer my question from the connected xWiki knowledge server with precise source provenance."

@@ -14,6 +14,9 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 
+# Rebuildable local knowledge index
+.xwiki/
+
 # Local LLM/assistant state
 .claude/
 .claudian/
