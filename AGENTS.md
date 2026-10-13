@@ -12,6 +12,8 @@ Before maintaining this wiki, read:
 - `_schema/taxonomy-workflow.md`
 - `_schema/query-workflow.md`
 - `_schema/conversion-workflow.md`
+- `_schema/indexing-workflow.md`
+- `_schema/mcp-workflow.md`
 
 This project follows an LLM-maintained wiki pattern:
 
