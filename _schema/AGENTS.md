@@ -22,10 +22,17 @@ and preserving useful analysis.
 - `xwiki_tools/`: rebuildable extraction, SQLite FTS/graph indexing, query, and
   read-only MCP code. It projects the file-based wiki and never replaces it as
   the source of truth.
+- `.agents/skills/`: repository-local agent entry points. The xWiki ingest skill
+  routes work through this schema; it must not redefine conflicting rules.
+- `skills/`: portable client skills. The xWiki knowledge MCP skill supports
+  read-only retrieval and does not authorize Wiki writes or index repair.
 
 ## Core Behavior
 
 - Read relevant schema files before changing the wiki.
+- Use `.agents/skills/xwiki-ingest/SKILL.md` for ingest, source analysis that
+  should enter the Wiki, and explicit taxonomy maintenance. If it conflicts
+  with `_schema/`, follow `_schema/` and repair the skill separately.
 - Preserve source provenance for meaningful claims.
 - Prefer small, well-linked pages over large undifferentiated notes.
 - Update existing pages before creating duplicates.

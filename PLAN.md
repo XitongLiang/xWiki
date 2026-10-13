@@ -185,6 +185,16 @@ Possible models:
 
 Add a first-class skill layer inspired by systems such as AutoSkill.
 
+Operational foundation completed:
+
+- repository-local `xwiki-ingest` skill that routes maintenance through the
+  authoritative schema
+- portable `xwiki-knowledge-mcp` skill for source-backed, read-only retrieval
+  by external agents
+
+These operational skills do not yet implement learned skill extraction,
+ranking, promotion, or lifecycle management.
+
 Potential design:
 
 - store reusable operating patterns as explicit Markdown skills

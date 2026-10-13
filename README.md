@@ -18,6 +18,8 @@ _wiki/        Generated knowledge: summaries, concepts, entities, syntheses, log
 _schema/      Operating rules: workflows, page conventions, citation style.
 .tools/       Deterministic maintenance utilities.
 xwiki_tools/  Local extraction, SQLite search/graph, query, and MCP package.
+.agents/      Repository-local agent skills for xWiki maintenance.
+skills/       Portable skills for agents that consume xWiki services.
 .xwiki/       Rebuildable local database and locks; never committed.
 ```
 
@@ -66,6 +68,10 @@ For planned future work, see `PLAN.md`.
 
 Most maintenance happens by asking an LLM agent to operate on this vault. Start
 from the root of the repo and use short, explicit requests like these.
+
+The repository-local `.agents/skills/xwiki-ingest/` skill routes ingest,
+analysis, and explicit taxonomy requests through the current `_schema/` rules.
+It is guidance for the maintaining agent; the schema remains authoritative.
 
 ### Exhaustive Ingest
 
@@ -262,6 +268,11 @@ Connect to `http://127.0.0.1:8765/mcp`. This local endpoint has no
 authentication and must not be exposed publicly. See
 `_schema/mcp-workflow.md` for client and safety guidance.
 
+Agents that consume this MCP can install or copy
+`skills/xwiki-knowledge-mcp/`. The skill documents evidence handling and the
+live `knowledge` action contract, and includes an optional Streamable HTTP
+client for environments without a native MCP binding.
+
 ## Tool Tests
 
 Run deterministic tests with:
@@ -285,6 +296,8 @@ Run deterministic tests with:
 - `_schema/conversion-workflow.md`: optional markdown conversion for rich inputs.
 - `_schema/indexing-workflow.md`: local extraction, SQLite FTS/graph builds, and queries.
 - `_schema/mcp-workflow.md`: read-only local MCP behavior and security boundary.
+- `.agents/skills/xwiki-ingest/SKILL.md`: repository-local ingest and maintenance entry point.
+- `skills/xwiki-knowledge-mcp/`: portable read-only MCP retrieval skill and client.
 - `_wiki/index.md`: a content-oriented catalog of wiki pages.
 - `_wiki/log.md`: a chronological record of ingests, queries, and maintenance.
 - `_wiki/overview.md`: a human-readable map of what this wiki currently knows.
